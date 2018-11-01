@@ -1,0 +1,20 @@
+#Filters the log group for a pattern  || Ross McG || 2018-09-14
+
+{
+    "Resources": {
+        "MetricFilterVPN": {
+            "Type": "AWS::Logs::LogStream",
+            "Properties": {
+                "LogGroupName": "LOGGROUPNAME",
+                "FilterPattern": "PATTERN",
+                "MetricTransformations": [
+                    {
+                        "MetricValue": "3",
+                        "MetricNamespace": "NAMESPACE",
+                        "MetricName": "METRICNAME"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+
+{
+    "Resources": {
+        "AlarmVPNLoginFailed": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "monitoring login failures",
+                "AlarmName": "VPN Login Failure Alarm",
+                "MetricName": "VPN-Failed-Login-Attempts",
+                "Namespace": "VPN-Count-Namespace",
+                "Statistic": "Sum",
+                "Threshold": "3",
+                "Period": "300",
+                "EvaluationPeriods": "1",
+                "ActionsEnabled": "True",
+                "ComparisonOperator": "GreaterThanThreshold",
+                "AlarmActions": [
+                    {
+                        "Fn::ImportValue": "NAMEOFOUTPUTFROMSNSSTACK"
+                        }
+                ]
+            }
+        }
+    }
+}

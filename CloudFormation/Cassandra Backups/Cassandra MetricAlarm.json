@@ -1,0 +1,26 @@
+#VPN Alarm- Gets the Metric Filter Name & Namespace and alarm actions notifies the SNS Topic created previously.  || Ross McG || 2018-10-23
+
+{
+    "Resources": {
+        "CassandraBackupComplete": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "AlarmDescription": "monitoring Cassandra Backups SHS",
+                "AlarmName": "Cassandra Backup Complete Alarm SHS",
+                "MetricName": "Cassandra-Backup-Complete",
+                "Namespace": "Cassandra-Backup-Count-Namespace",
+                "Statistic": "Sum",
+                "Threshold": "1",
+                "Period": "300",
+                "EvaluationPeriods": "1",
+                "ActionsEnabled": "True",
+                "ComparisonOperator": "GreaterThanThreshold",
+                "AlarmActions": [
+                    {
+                        "Fn::ImportValue": "NAMEFROMOUTPUTOFSNSSTACK"
+                        }
+                ]
+            }
+        }
+    }
+}

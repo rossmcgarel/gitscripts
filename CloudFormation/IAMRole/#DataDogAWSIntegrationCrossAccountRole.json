@@ -1,0 +1,316 @@
+#DataDogAWSIntegrationCrossAccountRole
+#Conditions:	 StringEquals	sts:ExternalId DD ExternalId 
+
+
+#IAM ROLE
+
+{  
+   "Resources":{  
+      "DataDogAWSIntegrationCrossAccountRole":{  
+         "Type":"AWS::IAM::Role",
+         "Properties":{  
+            "AssumeRolePolicyDocument":{
+               "Version":"2012-10-17",
+               "Statement":[  
+                  {
+                     "Effect":"Allow",
+                     "Action":"sts:AssumeRole",
+                     "Principal":{  
+                        "AWS":"arn:aws:iam::ACCTNUMBER:root"
+                     },
+                     "Condition":{  
+                        "StringEquals":{  
+                           "sts:ExternalId":"EXTERNALID"
+                        }
+                        
+                     }
+                  }
+               ]
+            },
+            "RoleName" : "ROLENAME",
+            "Path":"/system/"
+         }
+      }
+   }
+}
+
+
+
+
+
+
+
+#IAM POLICY
+
+{  
+   "Resources":{  
+      "DataDogAWSIntegrationCrossAccountPolicy":{  
+         "Type":"AWS::IAM::Policy",
+         "Properties":{  
+            "PolicyName":"DataDogAWSIntegrationCrossAccountPolicy",
+            "Roles":[  
+               "DataDogAWSIntegrationCrossAccountRole"
+            ],
+            "PolicyDocument":{  
+               "Version":"2012-10-17",
+               "Statement":[  
+                  {  
+                     "Sid":"datadogcloudconnector",
+                     "Effect":"Allow",
+                     "Action":[  
+                        "tag:GetTagValues",
+                        "tag:GetTagKeys",
+                        "tag:GetResources",
+                        "support:*",
+                        "sqs:ListQueues",
+                        "sns:Publish",
+                        "sns:List*",
+                        "ses:Get*",
+                        "s3:PutBucketNotification",
+                        "s3:ListAllMyBuckets",
+                        "s3:GetBucketTagging",
+                        "s3:GetBucketNotification",
+                        "s3:GetBucketLogging",
+                        "s3:GetBucketLocation",
+                        "route53:List*",
+                        "redshift:DescribeLoggingStatus",
+                        "redshift:DescribeClusters",
+                        "rds:List*",
+                        "rds:Describe*",
+                        "logs:TestMetricFilter",
+                        "logs:PutSubscriptionFilter",
+                        "logs:Get*",
+                        "logs:FilterLogEvents",
+                        "logs:DescribeSubscriptionFilters",
+                        "logs:Describe*",
+                        "logs:DeleteSubscriptionFilter",
+                        "lambda:RemovePermission",
+                        "lambda:List*",
+                        "lambda:GetPolicy",
+                        "lambda:AddPermission",
+                        "kinesis:List*",
+                        "kinesis:Describe*",
+                        "health:DescribeEvents",
+                        "health:DescribeEventDetails",
+                        "health:DescribeAffectedEntities",
+                        "es:ListTags",
+                        "es:ListDomainNames",
+                        "es:DescribeElasticsearchDomains",
+                        "elasticmapreduce:List*",
+                        "elasticmapreduce:Describe*",
+                        "elasticloadbalancing:Describe*",
+                        "elasticfilesystem:DescribeTags",
+                        "elasticfilesystem:DescribeFileSystems",
+                        "elasticache:List*",
+                        "elasticache:Describe*",
+                        "ecs:List*",
+                        "ecs:Describe*",
+                        "ec2:Describe*",
+                        "dynamodb:List*",
+                        "dynamodb:Describe*",
+                        "directconnect:Describe*",
+                        "codedeploy:List*",
+                        "codedeploy:BatchGet*",
+                        "cloudwatch:List*",
+                        "cloudwatch:Get*",
+                        "cloudwatch:Describe*",
+                        "cloudtrail:GetTrailStatus",
+                        "cloudtrail:DescribeTrails",
+                        "cloudfront:ListDistributions",
+                        "cloudfront:GetDistributionConfig",
+                        "budgets:ViewBudget",
+                        "autoscaling:Describe*"
+                     ],
+                     "Resource":"*"
+                  }
+               ]
+            }
+         }
+      }
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#TEMPLATE FOR IAM ROLE AND POLICY
+
+
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "02ff5d25-64b1-4e2d-ab9f-da0eae912182": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 170,
+                    "y": 85
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "1f3fa063-380d-4d69-a56f-11b908eb0bf6": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 470,
+                    "y": 121
+                },
+                "z": 0,
+                "embeds": [],
+                "isassociatedwith": [
+                    "02ff5d25-64b1-4e2d-ab9f-da0eae912182"
+                ],
+                "dependson": [
+                    "02ff5d25-64b1-4e2d-ab9f-da0eae912182"
+                ]
+            },
+            "e666c75e-3627-47c9-8ebb-7ea6ac297231": {
+                "source": {
+                    "id": "1f3fa063-380d-4d69-a56f-11b908eb0bf6"
+                },
+                "target": {
+                    "id": "02ff5d25-64b1-4e2d-ab9f-da0eae912182"
+                },
+                "z": 11
+            }
+        }
+    },
+    "Resources": {
+        "DataDogAWSIntegrationCrossAccountRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "sts:AssumeRole",
+                            "Principal": {
+                                "AWS": "arn:aws:iam::464622532012:root"
+                            },
+                            "Condition": {
+                                "StringEquals": {
+                                    "sts:ExternalId": "64aefd260614446f8a596ee48194d352"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "RoleName": "DataDogAWSIntegrationCrossAccountRole",
+                "Path": "/system/"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "02ff5d25-64b1-4e2d-ab9f-da0eae912182"
+                }
+            }
+        },
+        "DataDogAWSIntegrationCrossAccountPolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyName": "DataDogAWSIntegrationCrossAccountPolicy",
+                "Roles": [
+                    {
+                        "Ref": "DataDogAWSIntegrationCrossAccountRole"
+                    }
+                ],
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "datadogcloudconnector",
+                            "Effect": "Allow",
+                            "Action": [
+                                "tag:GetTagValues",
+                                "tag:GetTagKeys",
+                                "tag:GetResources",
+                                "support:*",
+                                "sqs:ListQueues",
+                                "sns:Publish",
+                                "sns:List*",
+                                "ses:Get*",
+                                "s3:PutBucketNotification",
+                                "s3:ListAllMyBuckets",
+                                "s3:GetBucketTagging",
+                                "s3:GetBucketNotification",
+                                "s3:GetBucketLogging",
+                                "s3:GetBucketLocation",
+                                "route53:List*",
+                                "redshift:DescribeLoggingStatus",
+                                "redshift:DescribeClusters",
+                                "rds:List*",
+                                "rds:Describe*",
+                                "logs:TestMetricFilter",
+                                "logs:PutSubscriptionFilter",
+                                "logs:Get*",
+                                "logs:FilterLogEvents",
+                                "logs:DescribeSubscriptionFilters",
+                                "logs:Describe*",
+                                "logs:DeleteSubscriptionFilter",
+                                "lambda:RemovePermission",
+                                "lambda:List*",
+                                "lambda:GetPolicy",
+                                "lambda:AddPermission",
+                                "kinesis:List*",
+                                "kinesis:Describe*",
+                                "health:DescribeEvents",
+                                "health:DescribeEventDetails",
+                                "health:DescribeAffectedEntities",
+                                "es:ListTags",
+                                "es:ListDomainNames",
+                                "es:DescribeElasticsearchDomains",
+                                "elasticmapreduce:List*",
+                                "elasticmapreduce:Describe*",
+                                "elasticloadbalancing:Describe*",
+                                "elasticfilesystem:DescribeTags",
+                                "elasticfilesystem:DescribeFileSystems",
+                                "elasticache:List*",
+                                "elasticache:Describe*",
+                                "ecs:List*",
+                                "ecs:Describe*",
+                                "ec2:Describe*",
+                                "dynamodb:List*",
+                                "dynamodb:Describe*",
+                                "directconnect:Describe*",
+                                "codedeploy:List*",
+                                "codedeploy:BatchGet*",
+                                "cloudwatch:List*",
+                                "cloudwatch:Get*",
+                                "cloudwatch:Describe*",
+                                "cloudtrail:GetTrailStatus",
+                                "cloudtrail:DescribeTrails",
+                                "cloudfront:ListDistributions",
+                                "cloudfront:GetDistributionConfig",
+                                "budgets:ViewBudget",
+                                "autoscaling:Describe*"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "1f3fa063-380d-4d69-a56f-11b908eb0bf6"
+                }
+            },
+            "DependsOn": [
+                "DataDogAWSIntegrationCrossAccountRole"
+            ]
+        }
+    }
+}

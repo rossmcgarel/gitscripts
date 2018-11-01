@@ -1,0 +1,38 @@
+#SNS Topic Creation For SIEM Solution- Subscribes to Datadog and Outputs its SNS ARN which can then be referenced by other Stack Resources.  || Ross McG || 2018-09-13
+
+{     
+   "AWSTemplateFormatVersion": "2010-09-09",
+   "Description": "SNS Topic to push the SIEM Notifications",
+   "Resources":{  
+      "SIEMNotifications":{  
+         "Type":"AWS::SNS::Topic",
+         "Properties":{  
+            "DisplayName": {  
+               "Fn::Sub": "${AWS::StackName}"
+            },
+            "Subscription":[  
+               {  
+                  "Endpoint":"ENDPOINTCANBEWEBHOOKETC",
+                  "Protocol":"https"
+               }
+            ],
+            "TopicName":
+                {"Fn::Sub": "${AWS::StackName}"
+            }
+         }
+      }
+   },
+   "Outputs":{  
+      "SIEMNotificationsTopicArn": {  
+         "Description": "SNS Topic",
+         "Value": {
+            "Ref":"SIEMNotifications"
+        },
+        "Export":{
+            "Name": {
+                "Fn::Sub": "${AWS::StackName}-NAMETORECOGNISE"
+            }
+         }
+      }
+   }
+}

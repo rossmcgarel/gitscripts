@@ -1,0 +1,12 @@
+{  
+   "Resources":{  
+      "mysubscription":{  
+         "Type":"AWS::SNS::Subscription",
+         "Properties":{  
+            "Endpoint":"ENDPOINTFORSNSTOPIC-e.gDATADOGWEBHOOK",
+            "Protocol":"https",
+            "TopicArn": {"Ref":"RDSNotifications"}
+         }
+      }
+   }
+}

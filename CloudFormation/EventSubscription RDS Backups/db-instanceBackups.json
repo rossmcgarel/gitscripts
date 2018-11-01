@@ -1,0 +1,17 @@
+{
+    "Resources": {
+        "EventSubscriptionDBInstanceBackups": {
+            "Type": "AWS::RDS::EventSubscription",
+            "Properties": {
+                "EventCategories": [
+                    "backup"
+                ],
+                "SnsTopicArn": {
+                    "Ref": "RDSNotifications"
+                },
+                "SourceType": "db-instance",
+                "Enabled": true
+            }
+        }
+    }
+}

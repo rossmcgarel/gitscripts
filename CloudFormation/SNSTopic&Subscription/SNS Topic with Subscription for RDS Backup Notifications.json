@@ -1,0 +1,30 @@
+{  
+   "AWSTemplateFormatVersion":"2010-09-09",
+   "Description":"SNS Topic for RDS Backup Events",
+   "Resources":{  
+      "RDSNotifications":{  
+         "Type":"AWS::SNS::Topic",
+         "Properties":{  
+            "DisplayName":{  
+               "Fn::Sub":"${AWS::StackName}"
+            },
+            "TopicName":{  
+               "Fn::Sub":"${AWS::StackName}"
+            }
+         }
+      }
+   },
+   "Outputs":{  
+      "RDSNotificationsTopicArn":{  
+         "Description":"SNS Topic for RDS Backup Events",
+         "Value":{  
+            "Ref":"RDSNotifications"
+         },
+         "Export":{  
+            "Name":{  
+               "Fn::Sub":"${AWS::StackName}-NAMETOEXPORT"
+            }
+         }
+      }
+   }
+}

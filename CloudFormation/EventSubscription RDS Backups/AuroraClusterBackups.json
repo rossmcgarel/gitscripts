@@ -1,0 +1,14 @@
+{  
+   "Resources":{  
+      "EventSubscriptionAuroraClusterBackups":{  
+         "Type":"AWS::RDS::EventSubscription",
+         "Properties":{  
+            "SnsTopicArn":{  
+               "Ref":"RDSNotifications"
+            },
+            "SourceType":"db-cluster-snapshot",
+            "Enabled":true
+         }
+      }
+   }
+}
